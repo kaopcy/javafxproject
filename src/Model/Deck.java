@@ -34,5 +34,11 @@ public class Deck {
         Random rand = new Random();
         return rand.nextInt(max - min) + min;
     }
+    
+    public void update(){
+        for(int i = 0 ;i < cards.size() ; i++){
+            cards.get(i).update();
+        }
+    }
 
 }

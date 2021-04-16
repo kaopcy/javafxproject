@@ -9,16 +9,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 public class GameButton extends Button{
-    private final String BUTTON_PRESSED_PATH = "-fx-background-color: transparent; -fx-background-image: url('file:src/Button2.png');";
-    private final String BUTTON_RELEASE_PATH = "-fx-background-color: transparent; -fx-background-image: url('file:src/Button2.png');";
+    private final String BUTTON_PRESSED_PATH = "-fx-background-color: transparent; ";
+    private final String BUTTON_RELEASE_PATH = "-fx-background-color: transparent; ";
     
     public GameButton(String text){
-        setFont(Font.font ("Verdana", 50));
+        setFont(Font.font ("Chiller", 60));
         setTextFill(Color.WHITE);
         setText(text);
         
-        setPrefWidth(300);
-        setPrefHeight(105);
+        
+        setPrefWidth(500);
+        setPrefHeight(60);
         setStyle(BUTTON_RELEASE_PATH);
         ButtonListener();
         
@@ -26,13 +27,11 @@ public class GameButton extends Button{
     
     private void setButtonPressedStyle(){
         setStyle(BUTTON_PRESSED_PATH);
-        setPrefHeight(105);
         setLayoutY(getLayoutY()+4);
     }
     
     private void setButtonReleaseStyle(){
         setStyle(BUTTON_RELEASE_PATH);
-        setPrefHeight(105);
         setLayoutY(getLayoutY()-4);
     }
     
@@ -42,7 +41,6 @@ public class GameButton extends Button{
             public void handle(MouseEvent event) {
                 if(event.getButton().equals(MouseButton.PRIMARY))
                     setButtonPressedStyle();
-                
             }
         });
         
@@ -57,7 +55,12 @@ public class GameButton extends Button{
         setOnMouseEntered(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event) {
-                setEffect(new DropShadow());
+                DropShadow ds = new DropShadow();
+                ds.setColor(Color.BLACK);
+                ds.setOffsetX(2);
+                ds.setOffsetY(2);
+                
+                setEffect(ds);
             }
         });
         
@@ -67,10 +70,21 @@ public class GameButton extends Button{
                 setEffect(null);
             }
         });
-        
-        
+
     }
     
+    public void setPos(double x , double y){
+        setLayoutX(x);
+        setLayoutY(y);
+    }
+    
+    public double getSizeX(){
+        return getPrefWidth();
+    }
+    
+    public double getSizeY(){
+        return getPrefHeight();
+    }
     
     
 }

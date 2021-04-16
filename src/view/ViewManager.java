@@ -4,6 +4,7 @@ package view;
 
 import Model.Deck;
 import Model.GameButton;
+import Model.Global;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +26,11 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.stage.Stage;
 
 public class ViewManager {
-    private static final int HEIGHT = 600;
-    private static final int WIDTH = 1200;
-    
+   
+   
     private static final int BUTTON_START_Y = 150;
+    
+    Image icon;
     
     private AnchorPane mainPane;
     private Scene mainScene;
@@ -37,19 +39,15 @@ public class ViewManager {
     List<GameButton> menuButton;
     
     private Deck deck;
-    int test = 0;
     
     public ViewManager() {
         menuButton = new ArrayList<>();
         mainPane = new AnchorPane();
-        mainScene = new Scene(mainPane , WIDTH , HEIGHT);
+        mainScene = new Scene(mainPane , Global.GAME_WIDTH , Global.GAME_HEIGHT);
         mainStage = new Stage();
         mainStage.setScene(mainScene);
+        createdIcon();
         
-//        Image image = new Image("file:Resource/img/CardCut.png");
-//        ImageView imageView = new ImageView(image);
-//        imageView.setViewport(new Rectangle2D(2250, 0, 225, 315));
-//        
         deck = new Deck();
         
         createButton();
@@ -65,8 +63,6 @@ public class ViewManager {
     }
     
     private void addButton(GameButton button){
-        button.setLayoutY(BUTTON_START_Y + menuButton.size() * 200);
-        button.setLayoutX(WIDTH / 2 - button.getPrefWidth() / 2);
         menuButton.add(button);
         mainPane.getChildren().add(button);
     }
@@ -78,15 +74,12 @@ public class ViewManager {
     
     private void createStartButton(){
         GameButton startButton = new GameButton("START");
+        startButton.setPos(Global.GAME_WIDTH * 0.5 - startButton.getSizeX() *0.5 , Global.GAME_HEIGHT * 0.5);
         startButton.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event) {
-//                renderDeck(test);
-//                test++;
                 GameViewManager gameManager = new GameViewManager();
                 gameManager.createNewGame(mainStage);
-
-
             }
         });
         addButton(startButton);
@@ -94,6 +87,7 @@ public class ViewManager {
     
     private void createExitButton(){
         GameButton exitButton = new GameButton("EXIT");
+        exitButton.setPos(Global.GAME_WIDTH * 0.5 - exitButton.getSizeX() *0.5 , Global.GAME_HEIGHT * 0.6);
         exitButton.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event) {
@@ -104,9 +98,16 @@ public class ViewManager {
     }
     
     private void createBackground(){
-        Image backgroundImage = new Image("file:Resource/img/card.png" , WIDTH , HEIGHT , false , true);
+        Image backgroundImage = new Image("file:Resource/img/background.jpg" , Global.GAME_WIDTH , Global.GAME_HEIGHT , false , true);
         BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
         mainPane.setBackground(new Background(background));
     }
+    
+    private void createdIcon(){
+        icon = new Image("file:Resource/img/icon.png");
+        mainStage.getIcons().add(icon);
+       
+    }
+    
     
 }
