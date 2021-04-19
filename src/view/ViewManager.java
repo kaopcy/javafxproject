@@ -53,6 +53,7 @@ public class ViewManager {
         createButton();
         
         createBackground();
+        createGif();
     }
     public Stage getMainStage(){
         return mainStage;
@@ -73,21 +74,21 @@ public class ViewManager {
     }
     
     private void createStartButton(){
-        GameButton startButton = new GameButton("START");
-        startButton.setPos(Global.GAME_WIDTH * 0.5 - startButton.getSizeX() *0.5 , Global.GAME_HEIGHT * 0.5);
+        GameButton startButton = new GameButton("Start");
+        startButton.setPos(Global.GAME_WIDTH * 0.2 - startButton.getSizeX() *0.5 , Global.GAME_HEIGHT * 0.3);
         startButton.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event) {
-                GameViewManager gameManager = new GameViewManager();
-                gameManager.createNewGame(mainStage);
+                SelectPlayerManager selectManager = new SelectPlayerManager();
+                selectManager.createNewGame(mainStage);
             }
         });
         addButton(startButton);
     }
     
     private void createExitButton(){
-        GameButton exitButton = new GameButton("EXIT");
-        exitButton.setPos(Global.GAME_WIDTH * 0.5 - exitButton.getSizeX() *0.5 , Global.GAME_HEIGHT * 0.6);
+        GameButton exitButton = new GameButton("Exit");
+        exitButton.setPos(Global.GAME_WIDTH * 0.2 - exitButton.getSizeX() *0.5 , Global.GAME_HEIGHT * 0.6);
         exitButton.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event) {
@@ -98,7 +99,7 @@ public class ViewManager {
     }
     
     private void createBackground(){
-        Image backgroundImage = new Image("file:Resource/img/background.jpg" , Global.GAME_WIDTH , Global.GAME_HEIGHT , false , true);
+        Image backgroundImage = new Image("file:Resource/img/backgroundMain.jpg" , Global.GAME_WIDTH , Global.GAME_HEIGHT , false , true);
         BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
         mainPane.setBackground(new Background(background));
     }
@@ -107,6 +108,14 @@ public class ViewManager {
         icon = new Image("file:Resource/img/icon.png");
         mainStage.getIcons().add(icon);
        
+    }
+    
+    private void createGif(){
+        Image gifimage = new Image("file:Resource/img/test6.gif");
+        
+        ImageView gif = new ImageView(gifimage);
+        
+        mainPane.getChildren().add(gif);
     }
     
     

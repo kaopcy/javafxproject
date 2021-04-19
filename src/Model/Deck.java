@@ -11,10 +11,21 @@ public class Deck {
     List<Card> cards = new ArrayList<>();
 
     public Deck() {
+        Image imageBack = new Image("file:Resource/img/backCardCut.png");
+        
         Image image = new Image("file:Resource/img/CardCut.png");
+        
+        Image jokerpic = new Image("file:Resource/img/test6.gif");
+        
+        Image jokerback = new Image("file:Resource/img/backCard.png");
+        
+        Joker joker = new Joker(jokerpic,53,jokerback);
         for (int i = 0; i < 52; i++) {
-            cards.add(new Card(image, i));
+            cards.add(new Card(image, i , imageBack));
         }
+        cards.add(joker);
+        
+        
     }
 
     public void render(AnchorPane pane, int num) {
@@ -29,7 +40,8 @@ public class Deck {
             cards.remove(i);
         }
     }
-
+    
+    
     private int getRand(int min, int max) {
         Random rand = new Random();
         return rand.nextInt(max - min) + min;
